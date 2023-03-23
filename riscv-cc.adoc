@@ -241,7 +241,10 @@ treats it as a non-empty field since {Cpp} defines the size of an empty struct
 or union as 1. However, C defines it as 0, that result from the array with an
 empty struct or union having a different size between C and {Cpp}. i.e.
 `struct { struct {} e[1]; float f; };` C will passed by `f0`, but {Cpp} will
-passed by `a0`
+passed by `a0`, because `e` will be ignored in C but in for {Cpp};
+The zero-length array of empty structs or union will treat be
+ignored for bot C and {Cpp}. i.e. For `struct { struct {} e[0]; float f; };`,
+C and {Cpp} will passed by `f0` since `e` will be ignored in both C and {Cpp}.
 
 A real floating-point argument is passed in a floating-point argument
 register if it is no more than ABI_FLEN bits wide and at least one floating-point
